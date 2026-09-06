@@ -1,0 +1,69 @@
+<%-include("./partials/header.ejs")%>
+
+    <main class="h-[100%] bg-pattern-def">
+
+        <form class="p-[5em] flex flex-col justify-center items-center" method="post">
+            <h1 class="self-baseline text-3xl font-mono text-white ">Exchange Rates Worldwide <a class=" text-blue-800">Updated Daily</a>.</h1>
+            <div class="flex gap-[4em] justify-center items-center mt-[6em]">
+                <div class="flex flex-col justify-center items-center">
+                    <div>
+                        <p class="text-2xl font-mono text-white">Choose Base Currency</p>
+                    </div>
+                    <div class="dropdown1">
+                        <button onclick="myFunction1()" class="dropbtn1">Select base</button>
+                        <div id="myDropdown1" class="dropdown-content1">
+                            <input type="text" placeholder="Search.." id="myInput1" onkeyup="filterFunction1()">
+                            <%for(let i = 0;i<curr.length;i++){%>
+                                <a> <%= curr[i] %> </a>
+                            <%}%>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="flex flex-col justify-center items-center">
+                    <p class="text-2xl font-mono text-white">Choose Quote Currency</p>
+                    <div>
+                        
+                        <div class="dropdown2">
+                            <button onclick="myFunction2()" class="dropbtn2">Select quote</button>
+                            <div id="myDropdown2" class="dropdown-content2">
+                                <input type="text" placeholder="Search.." id="myInput2" onkeyup="filterFunction2()">
+                                <%for(let i = 0;i<curr.length;i++){%>
+                                    <a> <%= curr[i] %> </a>
+                                <%}%>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <button id="finalsubmit" type="submit" value='' onclick="valuef()" name="base-quote" class="py-[0.6em] px-[1.3em] mt-[2em] text-2xl rounded-xl bg-blue-950 text-white" formaction="/go">Go</button>
+        </form>
+
+        <div class="flex flex-col justify-center items-center">
+
+
+            <%if(error1 == "$$"){%>
+                <%if(locals.params && Object.keys(params).length === 0) {%>
+                    <p class= " font-mono text-[1.8em] font-bold text-white">
+                        Please Choose the base and the quote.
+                    </p>
+                <%} else if(locals.params) {%>
+                    <p class="font-mono text-[1.8em] font-bold text-white">
+                        1 <%=params.base%> is equivalent to  <%=params.rate%> <%=params.quote%> as of <%=params.date%>.
+                    </p>
+                <%}%>
+            <%} else {%>
+                <p class="font-mono text-[1.8em] font-bold text-white"> Error: <%=error1%> </p>
+            <%}%>
+            
+
+
+            <p class=""></p>
+        </div>
+
+
+    </main>
+
+<%-include("./partials/footer.ejs")%>
